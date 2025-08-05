@@ -13,9 +13,13 @@ const functionReducer = (state, action) => {
     case "add":
       return [...state, action.payload];
     case "delete":
-      return [...state.slice(0, -1)];
+      return state.filter((item) => item.id !== action.payload);
     case "isDone":
-      return [...state, action.payload];
+      return state.map((item) =>
+        item.id === action.payload ? { ...item, isDone: !item.isDone } : item
+      );
+    case "clearDone":
+      return state.filter((item) => !item.isDone);
     default:
       return state;
   }
@@ -25,6 +29,7 @@ function App() {
   const [state, dispatch] = useReducer(functionReducer, tasks);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -43,13 +48,23 @@ function App() {
     }
   };
 
-  const deleteTask = () => {
-    dispatch({ type: "delete" });
+  const deleteTask = (id) => {
+    dispatch({ type: "delete", payload: id });
   };
 
   const checkedStatus = (id) => {
-    dispatch({ type: "isDone", payload: { isDone: !isDone } });
+    dispatch({ type: "isDone", payload: id });
   };
+
+  const clear = () => {
+    dispatch({ type: "clearDone" });
+  };
+
+  const menuOfTask = state.filter((item) => {
+    if (filter === "all") return true;
+    if (filter === "done") return item.isDone;
+    if (filter === "active") return !item.isDone;
+  });
 
   return (
     <>
@@ -63,21 +78,30 @@ function App() {
       {error}
 
       <button onClick={handleClick}>Добавить задачу</button>
-      {state.map((item) => {
+
+      {menuOfTask.map((item) => {
         return (
-          <div key={crypto.randomUUID()}>
-            <li>
+          <div key={item.id}>
+            <li className={item.isDone ? "active" : ""}>
               <input
                 type="checkbox"
                 checked={item.isDone}
-                onChange={checkedStatus(item.id)}
+                onChange={() => checkedStatus(item.id)}
               />
               {item.task}
-              <button onClick={deleteTask}>x</button>
+              <button onClick={() => deleteTask(item.id)}>x</button>
             </li>
           </div>
         );
       })}
+      <div>
+        <button onClick={() => setFilter("all")}>Все</button>
+        <button onClick={() => setFilter("active")}>Активные</button>
+        <button onClick={() => setFilter("done")}>Завершенные</button>
+      </div>
+      <div>
+        <button onClick={clear}>Очистить выполненные</button>
+      </div>
     </>
   );
 }
