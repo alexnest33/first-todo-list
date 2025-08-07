@@ -2,9 +2,9 @@ import { useState, useReducer, useEffect } from "react";
 import { taskReducer } from "../../utils/taskReducer";
 import InputTask from "../../components/InputTask";
 import Header from "../../components/Header";
-import TaskList from "../../TaskList";
+import TaskList from "../../components/TaskList";
 import FilterButtons from "../../components/FilterButtons";
-import ClearDoneTask from "../../ClearDoneTask";
+import ClearDoneTask from "../../components/ClearDoneTask";
 
 const AllPages = () => {
   const [state, dispatch] = useReducer(taskReducer, []);
