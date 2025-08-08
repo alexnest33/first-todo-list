@@ -1,9 +1,16 @@
+import { Button, Flex } from "antd";
+
 const ClearDoneTask = ({ state, clear }) => {
-    
   return (
     <>
-      <button onClick={clear}>Очистить выполненные</button>
-      <p>Список оставшихся дел: {state.length}</p>
+      <div className="cleartask">
+        <Flex gap="small" wrap>
+          <Button color="cyan" variant="solid" type="primary" onClick={clear}>
+            Очистить выполненные
+          </Button>
+        </Flex>
+      </div>
+      <h2>Список оставшихся дел: {state.length}</h2>
     </>
   );
 };

@@ -5,10 +5,11 @@ import Header from "../../components/Header";
 import TaskList from "../../components/TaskList";
 import FilterButtons from "../../components/FilterButtons";
 import ClearDoneTask from "../../components/ClearDoneTask";
+import Footer from "../../components/Footer";
 
 const AllPages = () => {
   const [state, dispatch] = useReducer(taskReducer, []);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("Все");
 
   const deleteTask = (id) => {
     dispatch({ type: "delete", payload: id });
@@ -23,9 +24,9 @@ const AllPages = () => {
   };
 
   const menuOfTask = state.filter((item) => {
-    if (filter === "all") return true;
-    if (filter === "done") return item.isDone;
-    if (filter === "active") return !item.isDone;
+    if (filter === "Все") return true;
+    if (filter === "Завершенные") return item.isDone;
+    if (filter === "Выполненные") return !item.isDone;
   });
 
   useEffect(() => {
@@ -35,15 +36,22 @@ const AllPages = () => {
 
   return (
     <>
-      <Header />
-      <InputTask dispatch={dispatch} />
-      <TaskList
-        tasks={menuOfTask}
-        checkedStatus={checkedStatus}
-        deleteTask={deleteTask}
-      />
-      <FilterButtons filter={filter} setFilter={setFilter} />
-      <ClearDoneTask clear={clear} state={state} />
+      <div className="app">
+        <Header />
+        <InputTask dispatch={dispatch} />
+        <TaskList
+          tasks={menuOfTask}
+          checkedStatus={checkedStatus}
+          deleteTask={deleteTask}
+        />
+        <FilterButtons filter={filter} setFilter={setFilter} />
+        <div>
+          <ClearDoneTask clear={clear} state={state} />
+        </div>
+      </div>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 };

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Button, Flex } from "antd";
+import { Input } from "antd";
 
 const InputTask = ({ dispatch }) => {
   const [text, setText] = useState("");
@@ -29,15 +31,26 @@ const InputTask = ({ dispatch }) => {
 
   return (
     <>
-      <input
-        type="text"
-        value={text}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder="Введите текст задачи..."
-      />
-      {error}
-      <button onClick={handleClick}>Добавить задачу</button>
+      <div className="inputbutton">
+        <Input
+          type="text"
+          value={text}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder="Введите текст задачи..."
+        />
+        {error}
+        <Flex gap="small" wrap>
+          <Button
+            color="cyan"
+            variant="solid"
+            type="primary"
+            onClick={handleClick}
+          >
+            Добавить задачу
+          </Button>
+        </Flex>
+      </div>
     </>
   );
 };

@@ -1,8 +1,7 @@
 const Header = () => {
-    
   return (
-    <header>
-      <h1>Мой To-Do List</h1>
+    <header className="header">
+      <h2>Список задач: </h2>
     </header>
   );
 };

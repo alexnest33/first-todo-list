@@ -5,44 +5,82 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+body{
+  margin:0;
+  padding: 0;
+  background:linear-gradient(200deg,#213b40); 
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-
 
 .active{
   text-decoration: line-through;
+}
+
+.buttonsFilters{
+  display:flex;
+  gap:10px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+
+.cleartask{
+  display: flex;
+  justify-content: center;
+}
+
+.inputbutton{
+  display: flex;
+  justify-content: space-around;
+  gap:10px
+}
+/* #a8d7e1; */
+.app{
+  max-width: 400px;
+  min-height: 60vh;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 14px;
+  border-color: blueviolet;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Inter', sans-serif;
+
+  display: flex;              
+  flex-direction: column;     
+  gap: 5px;   
+}
+
+.task-card {
+  display: flex;
+ flex-direction: inherit;
+ align-items: center; 
+  background: white;
+  padding: 14px 18px;
+  margin: 10px 0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(3, 3, 3, 0.05);
+  transition: transform 0.2s, background 0.3s;
+  gap: 8px; 
+}
+
+.btndelete{
+  margin-left: 20px;
+}
+
+.footer{
+  color:greenyellow;
+}
+
+@media (max-width: 480px) {
+  .app {
+    max-width: 100%;      
+    margin: 0;            
+    border-radius: 0;     
+    padding: 10px;       
+  }
+
+  .task-card {
+    padding: 10px;        
+    font-size: 14px;      
+  }
 }
