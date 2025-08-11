@@ -1,13 +1,16 @@
+import useLocalStorage from "./useLocalStorage";
+
 export const taskReducer = (state, action) => {
   console.log(action);
+  const { setItem } = useLocalStorage("tasks");
   switch (action.type) {
     case "add":
       const newArr = [...state, action.payload];
-      localStorage.setItem("tasks", JSON.stringify(newArr));
+      setItem(newArr);
       return newArr;
     case "delete":
       const newArr2 = [...state.filter((item) => item.id !== action.payload)];
-      localStorage.setItem("tasks", JSON.stringify(newArr2));
+      setItem(newArr2);
       return newArr2;
     case "isDone":
       const newArr3 = [
@@ -15,11 +18,11 @@ export const taskReducer = (state, action) => {
           item.id === action.payload ? { ...item, isDone: !item.isDone } : item
         ),
       ];
-      localStorage.setItem("tasks", JSON.stringify(newArr3));
+      setItem(newArr3);
       return newArr3;
     case "clearDone":
       const newArr4 = [...state.filter((item) => !item.isDone)];
-      localStorage.setItem("tasks", JSON.stringify(newArr4));
+      setItem(newArr4);
       return newArr4;
     case "initial":
       console.log(state);
@@ -29,3 +32,20 @@ export const taskReducer = (state, action) => {
       return state;
   }
 };
+
+// import { useState, useEffect } from 'react'
+
+// export function useLocalStorage(key, initialValue) {
+//   const [value, setValue] = useState(() => {
+//     const item = window.localStorage.getItem(key)
+//     return item ? JSON.parse(item) : initialValue
+//   })
+
+//   useEffect(() => {
+//     const item = JSON.stringify(value)
+//     window.localStorage.setItem(key, item)
+//     // eslint-disable-next-line
+//   }, [value])
+
+//   return [value, setValue]
+// }

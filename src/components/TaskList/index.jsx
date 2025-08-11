@@ -1,6 +1,16 @@
 import { Button, Flex } from "antd";
 
-const TaskList = ({ tasks, checkedStatus, deleteTask }) => {
+const TaskList = ({ tasks, dispatch }) => {
+
+  const deleteTask = (id) => {
+    dispatch({ type: "delete", payload: id });
+  };
+
+  const checkedStatus = (id) => {
+    dispatch({ type: "isDone", payload: id });
+  };
+
+
   return (
     <>
       <div className="task-card">

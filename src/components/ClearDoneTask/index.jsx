@@ -1,6 +1,10 @@
 import { Button, Flex } from "antd";
 
-const ClearDoneTask = ({ state, clear }) => {
+const ClearDoneTask = ({ state, dispatch }) => {
+  const clear = () => {
+    dispatch({ type: "clearDone" });
+  };
+
   return (
     <>
       <div className="cleartask">

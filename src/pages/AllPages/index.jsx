@@ -6,23 +6,15 @@ import TaskList from "../../components/TaskList";
 import FilterButtons from "../../components/FilterButtons";
 import ClearDoneTask from "../../components/ClearDoneTask";
 import Footer from "../../components/Footer";
+import useLocalStorage from "../../utils/useLocalStorage";
 
 const AllPages = () => {
   const [state, dispatch] = useReducer(taskReducer, []);
   const [filter, setFilter] = useState("Все");
 
-  const deleteTask = (id) => {
-    dispatch({ type: "delete", payload: id });
-  };
+const {getItem,setItem} = useLocalStorage('tasks')
 
-  const checkedStatus = (id) => {
-    dispatch({ type: "isDone", payload: id });
-  };
-
-  const clear = () => {
-    dispatch({ type: "clearDone" });
-  };
-
+  
   const menuOfTask = state.filter((item) => {
     if (filter === "Все") return true;
     if (filter === "Завершенные") return item.isDone;
@@ -30,7 +22,8 @@ const AllPages = () => {
   });
 
   useEffect(() => {
-    const result = JSON.parse(localStorage.getItem("tasks"));
+    // const result = JSON.parse(localStorage.getItem("tasks"));
+const result = getItem()
     dispatch({ type: "initial", payload: result });
   }, []);
 
@@ -41,12 +34,11 @@ const AllPages = () => {
         <InputTask dispatch={dispatch} />
         <TaskList
           tasks={menuOfTask}
-          checkedStatus={checkedStatus}
-          deleteTask={deleteTask}
+        dispatch={dispatch}
         />
         <FilterButtons filter={filter} setFilter={setFilter} />
         <div>
-          <ClearDoneTask clear={clear} state={state} />
+          <ClearDoneTask dispatch={dispatch} state={state} />
         </div>
       </div>
       <div>
