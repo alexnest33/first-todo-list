@@ -12,9 +12,8 @@ const AllPages = () => {
   const [state, dispatch] = useReducer(taskReducer, []);
   const [filter, setFilter] = useState("Все");
 
-const {getItem,setItem} = useLocalStorage('tasks')
+  const { getItem, setItem } = useLocalStorage("tasks");
 
-  
   const menuOfTask = state.filter((item) => {
     if (filter === "Все") return true;
     if (filter === "Завершенные") return item.isDone;
@@ -22,7 +21,7 @@ const {getItem,setItem} = useLocalStorage('tasks')
   });
 
   useEffect(() => {
-const result = getItem()
+    const result = getItem();
     dispatch({ type: "initial", payload: result });
   }, []);
 
@@ -31,10 +30,7 @@ const result = getItem()
       <div className="app">
         <Header />
         <InputTask dispatch={dispatch} />
-        <TaskList
-          tasks={menuOfTask}
-        dispatch={dispatch}
-        />
+        <TaskList tasks={menuOfTask} dispatch={dispatch} />
         <FilterButtons filter={filter} setFilter={setFilter} />
         <div>
           <ClearDoneTask dispatch={dispatch} state={state} />
