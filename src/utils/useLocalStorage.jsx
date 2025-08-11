@@ -1,10 +1,20 @@
 const useLocalStorage = (key, defaultValue) => {
   const getItem = () => {
-    return localStorage.getItem(key);
+    try {
+      if (!localStorage.getItem(key)) {
+      }
+      return localStorage.getItem(key);
+    } catch (error) {
+      console.log(error?.message);
+    }
   };
 
   const setItem = (data) => {
-    return localStorage.setItem(key, JSON.stringify(data));
+    try {
+      localStorage.setItem(key, JSON.stringify(data));
+    } catch (error) {
+      console.log(error?.message);
+    }
   };
 
   return { getItem, setItem };

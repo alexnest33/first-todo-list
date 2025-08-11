@@ -22,7 +22,6 @@ const {getItem,setItem} = useLocalStorage('tasks')
   });
 
   useEffect(() => {
-    // const result = JSON.parse(localStorage.getItem("tasks"));
 const result = getItem()
     dispatch({ type: "initial", payload: result });
   }, []);
