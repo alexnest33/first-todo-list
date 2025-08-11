@@ -1,7 +1,8 @@
 const useLocalStorage = (key, defaultValue) => {
-  const getItem = () => {
+  const getItem = (data) => {
     try {
       if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, JSON.stringify(data));
       }
       return localStorage.getItem(key);
     } catch (error) {
