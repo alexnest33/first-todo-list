@@ -1,10 +1,11 @@
 const useLocalStorage = (key, defaultValue) => {
-  const getItem = (data) => {
+  const getItem = () => {
     try {
-      if (!localStorage.getItem(key)) {
-        localStorage.setItem(key, JSON.stringify(data));
+      if (localStorage.getItem(key) === "u  ndefined ") {
+        return [];
+      } else {
+        return JSON.parse(localStorage.getItem(key));
       }
-      return localStorage.getItem(key);
     } catch (error) {
       console.log(error?.message);
     }

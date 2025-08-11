@@ -1,7 +1,6 @@
 import useLocalStorage from "./useLocalStorage";
 
 export const taskReducer = (state, action) => {
-  console.log(action);
   const { setItem } = useLocalStorage("tasks");
   switch (action.type) {
     case "add":
@@ -25,7 +24,6 @@ export const taskReducer = (state, action) => {
       setItem(newArr4);
       return newArr4;
     case "initial":
-      console.log(state);
       return [...action.payload];
 
     default:
