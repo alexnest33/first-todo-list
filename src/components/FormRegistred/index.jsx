@@ -97,17 +97,12 @@ const FormRegistred = () => {
             value={formData.age}
             onChange={handleChange}
           />
+          <Flex gap="small" wrap>
+            <Button color="cyan" variant="solid" type="submit">
+              Зарегистрироваться
+            </Button>
+          </Flex>
         </form>
-        <Flex gap="small" wrap>
-          <Button
-            color="cyan"
-            variant="solid"
-            type="primary"
-            onClick={userRegistred}
-          >
-            Зарегистрироваться
-          </Button>
-        </Flex>
       </div>
     </>
   );
