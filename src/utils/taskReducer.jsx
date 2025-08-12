@@ -30,3 +30,58 @@ export const taskReducer = (state, action) => {
       return state;
   }
 };
+
+
+const userInfo = {
+  "id": 1751,
+  "username": "220marry",
+  "email": "220example@example.com",
+  "gender": "female",
+  "age": 25,
+}
+
+const userAuth = {
+  "email": "220example@example.com",
+  "password": "2201Sq_22qw"
+}
+
+
+
+const userRegistred = async () => {
+try {
+  const response = await fetch('https://todo-redev.herokuapp.com/api/users/register',{
+    method: 'POST',
+    headers:{
+      accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body:JSON.stringify(userInfo)
+  })
+  const data = await response.json();
+  console.log(data)
+  }
+catch (error) {
+  console.log(error)
+}
+}
+
+
+const userLogin = async () => {
+  try {
+    const response = await fetch('https://todo-redev.herokuapp.com/api/auth/login',{
+      method:'POST',
+      headers:{
+        accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify(userAuth)
+    })
+    const data = await response.json()
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+//
