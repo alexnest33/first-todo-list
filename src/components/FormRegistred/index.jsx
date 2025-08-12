@@ -10,25 +10,6 @@ const FormRegistred = () => {
     age: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
-  const submit = (e) => {
-    e.preventDefault();
-    if (!formData.username || !formData.email || !formData.password) {
-      alert("Заполните поля");
-    }
-
-    if (formData.username.length < 2 || formData.username.length > 20) {
-      alert("Имя может быть от 2-ух символов до 25");
-    }
-  };
-
   const userRegistred = async () => {
     try {
       const response = await fetch(
@@ -50,6 +31,26 @@ const FormRegistred = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      alert("Заполните поля");
+    }
+
+    if (formData.username.length < 2 || formData.username.length > 20) {
+      alert("Имя может быть от 2-ух символов до 25");
+    }
+    userRegistred();
   };
 
   return (
