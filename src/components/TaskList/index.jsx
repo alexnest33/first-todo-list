@@ -14,7 +14,6 @@ const TaskList = ({ tasks, dispatch }) => {
       deleteTask={deleteTask}
       checkedStatus={checkedStatus}
       tasks={tasks}
-      dispatch={dispatch}
     />
   );
 };

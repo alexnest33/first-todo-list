@@ -17,7 +17,7 @@ const AllPages = () => {
   const menuOfTask = state.filter((item) => {
     if (filter === "Все") return true;
     if (filter === "Завершенные") return item.isDone;
-    if (filter === "Выполненные") return !item.isDone;
+    if (filter === "Активные") return !item.isDone;
   });
 
   useEffect(() => {
