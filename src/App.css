@@ -125,6 +125,7 @@ body{
   width: 100%;
   padding: 12px;
   color: white;
+  background-color: #5cdbd3;
   border: none;
   border-radius: 6px;
   font-size: 16px;
@@ -148,3 +149,52 @@ select:focus {
   box-shadow: 0 0 4px rgba(74, 144, 226, 0.3);
 }
 
+.formLogin{
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.formLogin input{
+   
+    display: block;
+    width: calc(100% - 6px); /* чуть меньше 100%, чтобы был отступ справа */
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.3s ease;
+    box-sizing: border-box;
+  
+}
+
+.formLogin input:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.3);
+}
+
+.formLogin button{
+  width: 100%;
+  padding: 12px;
+  color: white;
+  background-color: #5cdbd3;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.formLogin label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #555;
+}

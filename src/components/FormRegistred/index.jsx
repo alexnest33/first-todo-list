@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Flex } from "antd";
+import "@ant-design/v5-patch-for-react-19";
 
 const FormRegistred = () => {
   const [formData, setFormData] = useState({
@@ -41,16 +42,13 @@ const FormRegistred = () => {
     }));
   };
 
-  const submit = (e) => {
-    e.preventDefault();
+  const submit = (event) => {
+    event.preventDefault();
     if (!formData.username || !formData.email || !formData.password) {
-      alert("Заполните поля");
+      alert("Заполните пустые поля");
+    } else {
+      userRegistred();
     }
-
-    if (formData.username.length < 2 || formData.username.length > 20) {
-      alert("Имя может быть от 2-ух символов до 25");
-    }
-    userRegistred();
   };
 
   return (
@@ -65,6 +63,7 @@ const FormRegistred = () => {
             placeholder="Введите ваш никнейм"
             value={formData.username}
             onChange={handleChange}
+            required={"ss"}
           />
           <label>Email:</label>
           <input
@@ -99,7 +98,7 @@ const FormRegistred = () => {
             onChange={handleChange}
           />
           <Flex gap="small" wrap>
-            <Button color="cyan" variant="solid" type="submit">
+            <Button type="submit" color="cyan" variant="solid">
               Зарегистрироваться
             </Button>
           </Flex>
