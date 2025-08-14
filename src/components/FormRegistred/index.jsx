@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Button, Flex } from "antd";
-import "@ant-design/v5-patch-for-react-19";
 
 const FormRegistred = () => {
   const [formData, setFormData] = useState({
@@ -97,11 +95,8 @@ const FormRegistred = () => {
             value={formData.age}
             onChange={handleChange}
           />
-          <Flex gap="small" wrap>
-            <Button type="submit" color="cyan" variant="solid">
-              Зарегистрироваться
-            </Button>
-          </Flex>
+
+          <button type="submit">Зарегистрироваться</button>
         </form>
       </div>
     </>

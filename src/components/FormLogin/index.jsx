@@ -1,10 +1,15 @@
 import { useState } from "react";
+import useLocalStorage from "../../utils/useLocalStorage";
+import { useNavigation } from "react-router";
 
 const FormLogin = () => {
   const [dataEntry, setDataEntry] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigation();
+  const { getItem, setItem } = useLocalStorage("token");
 
   const userLogin = async () => {
     try {
@@ -20,6 +25,7 @@ const FormLogin = () => {
         }
       );
       const data = await response.json();
+      setItem(data);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -43,6 +49,10 @@ const FormLogin = () => {
     }));
   };
 
+  const navigation = () => {
+    navigate('/todos')
+  }
+
   return (
     <>
       <div className="formLogin">
@@ -50,6 +60,7 @@ const FormLogin = () => {
           <label>Адрес электронной почты:</label>
           <input
             type="text"
+            name="email"
             placeholder="e-mail"
             value={dataEntry.email}
             onChange={handleChange}
@@ -57,11 +68,12 @@ const FormLogin = () => {
           <label>Пароль:</label>
           <input
             type="password"
+            name="password"
             placeholder="password"
-            value={dataEntry.email}
+            value={dataEntry.password}
             onChange={handleChange}
           />
-          <button>Войти</button>
+          <button type="submit">Войти</button>
         </form>
       </div>
     </>
