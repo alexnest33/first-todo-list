@@ -1,45 +1,55 @@
-import { useState, useReducer, useEffect } from "react";
-import { taskReducer } from "../../utils/taskReducer";
-import InputTask from "../../components/InputTask";
-import Header from "../../components/Header";
-import TaskList from "../../components/TaskList";
-import FilterButtons from "../../components/FilterButtons";
-import ClearDoneTask from "../../components/ClearDoneTask";
-import Footer from "../../components/Footer";
-import useLocalStorage from "../../utils/useLocalStorage";
+import AddTask from "../../components/AddTask";
+// import ChangeTask from "../../components/ChangeTask";
+import DeleteTask from "../../components/DeleteTask";
+// import GetTask from "../../components/GetTask";
+import { useState, useEffect } from "react";
 
 const AllPages = () => {
-  const [state, dispatch] = useReducer(taskReducer, []);
-  const [filter, setFilter] = useState("Все");
+  const [tasks, setTasks] = useState([
+    {
+      id: "",
+      title: "",
+      isCompleted: "",
+      user_id: "",
+    },
+  ]);
+  const [text, setText] = useState("");
 
-  const { getItem, setItem } = useLocalStorage("tasks");
+  const userTask = async () => {
+    try {
+      const response = await fetch(
+        "https://todo-redev.herokuapp.com/api/todos?isCompleted=false",
+        {
+          method: "GET",
+          headers: {
+            accept: "application/json",
 
-  const menuOfTask = state.filter((item) => {
-    if (filter === "Все") return true;
-    if (filter === "Завершенные") return item.isDone;
-    if (filter === "Активные") return !item.isDone;
-  });
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`${response.status}, ${response.text}`);
+      }
+      setTasks(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   useEffect(() => {
-    const result = getItem();
-    dispatch({ type: "initial", payload: result });
+    userTask();
   }, []);
 
   return (
-    <>
-      <div className="app">
-        <Header />
-        <InputTask dispatch={dispatch} />
-        <TaskList tasks={menuOfTask} dispatch={dispatch} />
-        <FilterButtons filter={filter} setFilter={setFilter} />
-        <div>
-          <ClearDoneTask dispatch={dispatch} state={state} />
-        </div>
-      </div>
-      <div>
-        <Footer />
-      </div>
-    </>
+    <div className="app">
+      <AddTask setTasks={setTasks} text={text} setText={setText } />
+      {/* <GetTask tasks={tasks} /> */}
+      <DeleteTask tasks={tasks} setTasks={setTasks} />
+     {/* <ChangeTask text={text} setText={setText} tasks={tasks}/> */}
+    </div>
   );
 };
 

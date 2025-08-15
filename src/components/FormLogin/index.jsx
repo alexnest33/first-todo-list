@@ -1,6 +1,7 @@
 import { useState } from "react";
-import useLocalStorage from "../../utils/useLocalStorage";
-import { useNavigation } from "react-router";
+// import useLocalStorage from "../../utils/useLocalStorage";
+import { useNavigate } from "react-router";
+import GetTask from "../GetTask";
 
 const FormLogin = () => {
   const [dataEntry, setDataEntry] = useState({
@@ -8,8 +9,8 @@ const FormLogin = () => {
     password: "",
   });
 
-  const navigate = useNavigation();
-  const { getItem, setItem } = useLocalStorage("token");
+  const navigate = useNavigate();
+  
 
   const userLogin = async () => {
     try {
@@ -25,8 +26,9 @@ const FormLogin = () => {
         }
       );
       const data = await response.json();
-      setItem(data);
-      console.log(data);
+      console.log(data.token);
+      localStorage.setItem("token",data.token);
+      navigate("/todos");
     } catch (error) {
       console.log(error);
     }
@@ -48,10 +50,6 @@ const FormLogin = () => {
       [name]: value,
     }));
   };
-
-  const navigation = () => {
-    navigate('/todos')
-  }
 
   return (
     <>
